@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block styles %}
+<style>
+.jumbotron {
+	text-align: center;
+}
+</style>
+{% endblock %}
+
+{% block jumbotron %}
+ <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Credit Card processing </h1>
+        <p> This website is a small effort towards showing how a Credit card procesing website can be built using Django</p>
+      </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+        <div class="col-md-4">
+          <h2>About This website</h2>
+          <p>Python Portal built to pay money using credit card. It uses Stripe as the backend to complete the transaction </p>
+        </div>
+        <div class="col-md-4">
+		<a href="#"><img src="{% static 'img/home.jpeg' %}" class='img-responsive'/></a>
+       </div>
+        <div class="col-md-4">
+        {% if request.user.is_authenticated %}
+        <h3>Hello {{ request.user }}, Thank you for using our website for your transaction</h3>
+
+        {% else %}
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+
+
+<div id="div_id_login" class="form-group"> <label for="id_login" class="control-label  requiredField">
+                Login<span class="asteriskField">*</span> </label> <div class="controls "> <input autofocus="autofocus" class="textinput textInput form-control" id="id_login" name="login" placeholder="Username or e-mail" type="text" required=""> </div> </div> <div id="div_id_password" class="form-group"> <label for="id_password" class="control-label  requiredField">
+                Password<span class="asteriskField">*</span> </label> <div class="controls "> <input class="textinput textInput form-control" id="id_password" name="password" placeholder="Password" type="password" required=""> </div> </div> <div class="form-group"> <div id="div_id_remember" class="checkbox"> <label for="id_remember" class=""> <input class="checkboxinput" id="id_remember" name="remember" type="checkbox">
+                    Remember Me
+                </label> </div> </div>
+  <a class="btn btn-link button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+  <a class="btn btn-link button secondaryAction" href="{% url 'account_signup' %}">Signup</a>
+  <button class=" btn btn-default primaryAction" type="submit">Sign In</button>
+</form>
+{% endif %}
+        </div>
+</div>
+{% endblock %}
